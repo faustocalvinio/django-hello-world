@@ -6,11 +6,374 @@ from django.http import HttpResponse
 def index(request):
     now = datetime.now()
     html = f'''
-    <html>
-        <body>
-            <h1>Hello from Vercel!</h1>
-            <p>The current time is { now }.</p>
-        </body>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>facal.space - Exploring the Digital Universe</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+        <style>
+            * {{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }}
+
+            body {{
+                background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+                color: white;
+                font-family: 'Arial', sans-serif;
+                overflow-x: hidden;
+                min-height: 100vh;
+                position: relative;
+            }}
+
+            .stars {{
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 1;
+            }}
+
+            .star {{
+                position: absolute;
+                background: white;
+                border-radius: 50%;
+                animation: twinkle 2s infinite;
+            }}
+
+            @keyframes twinkle {{
+                0%, 100% {{ opacity: 0.3; }}
+                50% {{ opacity: 1; }}
+            }}
+
+            .container {{
+                position: relative;
+                z-index: 10;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }}
+
+            .logo {{
+                font-size: 4rem;
+                font-weight: bold;
+                margin-bottom: 1rem;
+                background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+                background-size: 300% 300%;
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: gradientShift 3s ease-in-out infinite;
+            }}
+
+            @keyframes gradientShift {{
+                0%, 100% {{ background-position: 0% 50%; }}
+                50% {{ background-position: 100% 50%; }}
+            }}
+
+            .subtitle {{
+                font-size: 1.2rem;
+                margin-bottom: 3rem;
+                opacity: 0.8;
+                color: #b8c6db;
+            }}
+
+            .rocket-container {{
+                position: relative;
+                margin: 2rem 0;
+            }}
+
+            .rocket {{
+                font-size: 6rem;
+                animation: float 3s ease-in-out infinite, rotate 6s linear infinite;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }}
+
+            .rocket:hover {{
+                transform: scale(1.2);
+            }}
+
+            @keyframes float {{
+                0%, 100% {{ transform: translateY(0px) rotate(0deg); }}
+                50% {{ transform: translateY(-20px) rotate(5deg); }}
+            }}
+
+            @keyframes rotate {{
+                0% {{ transform: rotate(0deg); }}
+                100% {{ transform: rotate(360deg); }}
+            }}
+
+            .exhaust {{
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 20px;
+                height: 40px;
+                background: linear-gradient(to bottom, #ff4757, #ffa502, #ff6b6b);
+                border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+                animation: exhaust 0.5s ease-in-out infinite alternate;
+                opacity: 0.8;
+            }}
+
+            @keyframes exhaust {{
+                0% {{ height: 40px; opacity: 0.8; }}
+                100% {{ height: 60px; opacity: 0.4; }}
+            }}
+
+            .time-info {{
+                margin-top: 2rem;
+                padding: 1rem 2rem;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 15px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }}
+
+            .launch-button {{
+                margin-top: 2rem;
+                padding: 15px 30px;
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                border: none;
+                border-radius: 30px;
+                color: white;
+                font-size: 1.1rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            }}
+
+            .launch-button:hover {{
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            }}
+
+            .footer {{
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                opacity: 0.6;
+                font-size: 0.9rem;
+            }}
+
+            .particles {{
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 5;
+            }}
+
+            .particle {{
+                position: absolute;
+                background: #4ecdc4;
+                border-radius: 50%;
+                animation: float-particle 8s linear infinite;
+            }}
+
+            @keyframes float-particle {{
+                0% {{
+                    transform: translateY(100vh) rotate(0deg);
+                    opacity: 0;
+                }}
+                10% {{
+                    opacity: 1;
+                }}
+                90% {{
+                    opacity: 1;
+                }}
+                100% {{
+                    transform: translateY(-100px) rotate(360deg);
+                    opacity: 0;
+                }}
+            }}
+
+            @media (max-width: 768px) {{
+                .logo {{ font-size: 2.5rem; }}
+                .rocket {{ font-size: 4rem; }}
+                .subtitle {{ font-size: 1rem; }}
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="stars" id="stars"></div>
+        <div class="particles" id="particles"></div>
+        
+        <div class="container">
+            <h1 class="logo">facal.space</h1>
+            <p class="subtitle">Exploring the Digital Universe</p>
+            
+            <div class="rocket-container">
+                <div class="rocket" id="rocket" onclick="launchRocket()">🚀</div>
+                <div class="exhaust"></div>
+            </div>
+            
+            <div class="time-info">
+                <p>Mission Control Time: {now.strftime('%Y-%m-%d %H:%M:%S')}</p>
+                <p>Status: Ready for Launch 🌟</p>
+            </div>
+            
+            <button class="launch-button" onclick="createFireworks()">Launch Fireworks! 🎆</button>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 facal.space | Houston, we have a website! 🛰️</p>
+        </div>
+
+        <script>
+            // Create stars
+            function createStars() {{
+                const starsContainer = document.getElementById('stars');
+                const numStars = 150;
+                
+                for (let i = 0; i < numStars; i++) {{
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.width = Math.random() * 3 + 1 + 'px';
+                    star.style.height = star.style.width;
+                    star.style.animationDelay = Math.random() * 2 + 's';
+                    starsContainer.appendChild(star);
+                }}
+            }}
+
+            // Create floating particles
+            function createParticles() {{
+                const particlesContainer = document.getElementById('particles');
+                
+                setInterval(() => {{
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.width = Math.random() * 4 + 2 + 'px';
+                    particle.style.height = particle.style.width;
+                    particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                    particlesContainer.appendChild(particle);
+                    
+                    setTimeout(() => {{
+                        particle.remove();
+                    }}, 8000);
+                }}, 1000);
+            }}
+
+            // Launch rocket animation
+            function launchRocket() {{
+                const rocket = document.getElementById('rocket');
+                rocket.style.animation = 'none';
+                rocket.style.transform = 'translateY(-1000px) rotate(720deg) scale(0.5)';
+                rocket.style.transition = 'all 2s ease-out';
+                
+                setTimeout(() => {{
+                    rocket.style.transform = 'translateY(0px) rotate(0deg) scale(1)';
+                    rocket.style.animation = 'float 3s ease-in-out infinite, rotate 6s linear infinite';
+                }}, 2500);
+            }}
+
+            // Create fireworks effect
+            function createFireworks() {{
+                for (let i = 0; i < 15; i++) {{
+                    setTimeout(() => {{
+                        createFirework();
+                    }}, i * 200);
+                }}
+            }}
+
+            function createFirework() {{
+                const firework = document.createElement('div');
+                firework.style.position = 'fixed';
+                firework.style.left = Math.random() * window.innerWidth + 'px';
+                firework.style.top = Math.random() * window.innerHeight + 'px';
+                firework.style.width = '4px';
+                firework.style.height = '4px';
+                firework.style.background = `hsl(${{Math.random() * 360}}, 100%, 60%)`;
+                firework.style.borderRadius = '50%';
+                firework.style.pointerEvents = 'none';
+                firework.style.zIndex = '1000';
+                
+                document.body.appendChild(firework);
+                
+                // Animate explosion
+                const particles = [];
+                for (let i = 0; i < 12; i++) {{
+                    const particle = document.createElement('div');
+                    particle.style.position = 'fixed';
+                    particle.style.left = firework.style.left;
+                    particle.style.top = firework.style.top;
+                    particle.style.width = '3px';
+                    particle.style.height = '3px';
+                    particle.style.background = firework.style.background;
+                    particle.style.borderRadius = '50%';
+                    particle.style.pointerEvents = 'none';
+                    particle.style.zIndex = '1000';
+                    
+                    const angle = (i / 12) * Math.PI * 2;
+                    const velocity = 50 + Math.random() * 50;
+                    const vx = Math.cos(angle) * velocity;
+                    const vy = Math.sin(angle) * velocity;
+                    
+                    document.body.appendChild(particle);
+                    particles.push({{ element: particle, vx, vy, life: 60 }});
+                }}
+                
+                firework.remove();
+                
+                function animateParticles() {{
+                    particles.forEach((p, index) => {{
+                        if (p.life <= 0) {{
+                            p.element.remove();
+                            particles.splice(index, 1);
+                            return;
+                        }}
+                        
+                        const rect = p.element.getBoundingClientRect();
+                        p.element.style.left = (rect.left + p.vx * 0.5) + 'px';
+                        p.element.style.top = (rect.top + p.vy * 0.5) + 'px';
+                        p.element.style.opacity = p.life / 60;
+                        p.life--;
+                    }});
+                    
+                    if (particles.length > 0) {{
+                        requestAnimationFrame(animateParticles);
+                    }}
+                }}
+                
+                animateParticles();
+            }}
+
+            // Initialize
+            createStars();
+            createParticles();
+            
+            // Add some easter eggs
+            document.addEventListener('keydown', (e) => {{
+                if (e.code === 'Space') {{
+                    launchRocket();
+                }}
+                if (e.key === 'f' || e.key === 'F') {{
+                    createFireworks();
+                }}
+            }});
+
+            // Welcome message
+            console.log('🚀 Welcome to facal.space! 🚀');
+            console.log('Easter eggs: Press SPACE to launch rocket, F for fireworks!');
+        </script>
+    </body>
     </html>
     '''
     return HttpResponse(html)
